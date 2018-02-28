@@ -70,9 +70,9 @@
                 
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
-                            <li> <a class="waves-effect waves-dark active" href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                            <li> <a class="waves-effect waves-dark " href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark" href="tag.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Tag</span></a>
+                            <li> <a class="waves-effect waves-dark active" href="tag.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Tag</span></a>
                             </li>
                             <li> <a class="waves-effect waves-dark" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
                             </li>
@@ -87,10 +87,35 @@
          		<div class="container-fluid">
            			 <div class="card"></div>
                      <div class="card">
-              			<div class="row ">
-	         	          	<div class="col-6">
-		                   	</div>
-                            <div class="col-6">
+              			<div class="row">
+                            <div class="col-12">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><b>id</b></th>
+                                            <th><b>Name</b></th>
+                                            <th><b>Discription</b></th>
+                                            <th><b>Actions</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                                $str="select * from tag where t_deletion_status=0";
+                                                $reuslt=mysqli_query($con,$str);
+                                                while($row=mysqli_fetch_array($reuslt)){
+                                        ?>
+                                            <tr>
+                                                <td> <?php echo "$row[0]"; ?> </td> 
+                                                <td> <?php echo "$row[1]"; ?> </td>
+                                                <td> <?php echo "$row[2]"; ?> </td> 
+                                                <td> <i class="mdi mdi-delete"></i></td>                               
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
                             </div>
 	        		 	</div>
 
