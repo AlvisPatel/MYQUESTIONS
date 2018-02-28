@@ -45,14 +45,14 @@
                             <li class="nav-item dropdown" style="margin-right: 5px;">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded false">
                                 		<?php
-                                            $id=0;
-                                            $str="select u_name,u_photo_path from users_details where u_id= $id ";
+                                            $a_id=$_SESSION['u_id'];
+                                            $str="select u_name,u_photo_path from users_details where u_id= $a_id ";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_array($result);
                                             $imgpath=$row['u_photo_path'];
-                                            $user_name=$row['u_name'];
+                                            $a_name=$row['u_name'];
                                         ?>
-                                    <img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$user_name"; ?></a>
+                                    <img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
                             </li>    
                             <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
                         </ul>

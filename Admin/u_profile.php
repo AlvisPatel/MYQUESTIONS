@@ -75,22 +75,28 @@
                         </ul>
                     </nav>
                 </div>
-             </aside> 
+             </aside>
 
              <!-- get admin other details php code -->
 
                                     <?php
-                                        $str="select * from users_details where u_id= $a_id ";
+                                            $str="select * from users where u_id= $u_id";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_assoc($result);
+                                            $u_email=$row['u_email'];
+                                            $str="select * from users_details where u_id= $u_id";
+                                            $result = mysqli_query($con,$str);
+                                            $row=mysqli_fetch_assoc($result);
+                                            $u_name=$row['u_name'];
                                             $u_description=$row['u_description'];
                                             $u_DOB=$row['u_DOB'];
                                             $u_designation=$row['u_designation'];
                                             $u_contry=$row['u_contry'];
                                             $u_state=$row['u_state'];
-                                            $u_type=$row['u_type'];
-                                           
+                                           $u_type=$row['u_type'];
+                                           $u_intrested_tegs=$row['u_intrested_tegs'];
                                     ?>
+                     
 
             <div class="page-wrapper">
          		<div class="container-fluid">
@@ -101,7 +107,7 @@
                         <div class="card">
                             <div class="card-block">
                                 <center class="m-t-30"> <img src=<?php  echo $imgpath ?> class="img-circle" width="150" />
-                                    <h4 class="card-title m-t-10"><?php  echo $a_name?> </h4>
+                                    <h4 class="card-title m-t-10"><?php  echo $u_name?> </h4>
                                     <h6 class="card-subtitle"><?php  echo $u_type?></h6>
                                 </center>
                             </div>
@@ -118,25 +124,25 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_name" value="<?php  echo $a_name ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_name" value="<?php  echo $u_name ?>" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" value="<?php  echo $_SESSION['u_email'] ?> " class="form-control form-control-line" name="u_email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password"  name="u_password" value="<?php  echo $_SESSION['pwd'] ?> " class="form-control form-control-line">
+                                            <input type="email" value="<?php  echo $u_email; ?> " class="form-control form-control-line" name="u_email">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Date Of Birth</label>
                                         <div class="col-md-12">
                                             <input type="text" name="u_DOB" value="<?php  echo $u_DOB?>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Intrested Tags</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="u_intrested_tegs" value="<?php  echo $u_intrested_tegs ?>" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
