@@ -1,14 +1,11 @@
-<?php  
+<?php
 	require_once('../config.php');
+	require_once('session_check.php');
 
-	if(isset($_SESSION['u_email']))
-	{
-		header("location:index.php");
-	}
 	if(isset($_POST['btn_sub']))
 	{
 		$a_id=$_SESSION['u_id'];
-		$a_name=$_POST['u_name'];	
+		$a_name=$_POST['u_name'];
 		$u_email=$_POST['u_email'];
 		$u_password=$_POST['u_password'];
 		$u_description=$_POST['u_description'];

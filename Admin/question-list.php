@@ -3,6 +3,7 @@
 <?php
 // session_start();
 include_once '../config.php';
+require_once('session_check.php');
 //
 // if(!isset($_SESSION['user']))
 // {

@@ -1,22 +1,20 @@
 <?php
 	session_start();
 	require_once('../config.php');
-	if(isset($_SESSION['u_email']))
-	{
-		header("location:index.php");
-	}
+	require_once('session_check.php');
+	
 	if(isset($_POST['btnSub']))
 	{
 		$u_email=$_POST['u_email'];
 		$pwd=$_POST['pwd'];
-		
-		$str="Select * from users where u_email='$u_email' and u_password='$pwd' ;";
+
+		$str="Select u.* from users u,users_details d where u.u_email='$u_email' and u.u_password='$pwd' and u.u_id = d.u_id and d.u_type='admin' ;";
 		$result=mysqli_query($con,$str) or die("Email or Password is wrong...!!!");
-		$rowCount=mysqli_num_rows($result);
-		if($rowCount>0)
+		// $rowCount=mysqli_num_rows($result);
+		if(mysqli_num_rows($result)==1)
 		{
 			$row=mysqli_fetch_array($result);
-			
+
 			$_SESSION['u_id']=$row['u_id'];
 			$_SESSION['u_email']=$row['u_email'];
 			$_SESSION['pwd']=$row['u_password'];
@@ -24,7 +22,7 @@
 		}
 		else
 		{
-			echo"<script> alert('Email or Password is wrong...!!!')</script>"; 
+			echo"<script> alert('Email or Password is wrong...!!!')</script>";
 		}
 	}
 ?>
@@ -56,7 +54,7 @@
 	                    <td><input type="reset" value="Reset" name="btnReset" ></td>
 	                </tr>
 	            </table>
-	        </form>	
+	        </form>
 		</div>
 	    </center>
 	    </div>
