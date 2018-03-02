@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-    if(! isset($_SESSION['u_email']))
-    {
-        header("location:login.php");
-    }
+    require_once('session_check.php');
 ?>
 <html lang="en">
 
@@ -42,7 +39,7 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav mr-auto mt-md-0">
                             <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="mdi mdi-menu"> </i> </a> 
+                                <i class="mdi mdi-menu"> </i> </a>
                             </li>
                         </ul>
                         <ul class="navbar-nav my-lg-0">
@@ -57,17 +54,17 @@
 											$a_name=$row['u_name'];
                                 		?>
                                 	<img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
-                            </li>       
-                            <li class="nav-item dropdown"><a href="logout.php" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
+                            </li>
+                            <li class="nav-item dropdown"><a href="logout.php" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>
                         </ul>
                     </div>
                 </nav>
             </header>
 
             <aside class="left-sidebar">
-            
+
                 <div class="scroll-sidebar">
-                
+
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li> <a class="waves-effect waves-dark " href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
@@ -81,7 +78,7 @@
                         </ul>
                     </nav>
                 </div>
-             </aside> 
+             </aside>
 
             <div class="page-wrapper">
          		<div class="container-fluid">
@@ -104,13 +101,13 @@
                                         <?php
                                                 $str="select * from tag where t_deletion_status=0";
                                                 $reuslt=mysqli_query($con,$str);
-                                                while($row=mysqli_fetch_array($reuslt)){
+                                                while($row=mysqli_fetch_assoc($reuslt)){
                                         ?>
                                             <tr>
-                                                <td> <?php echo "$row[0]"; ?> </td> 
-                                                <td> <?php echo "$row[1]"; ?> </td>
-                                                <td> <?php echo "$row[2]"; ?> </td> 
-                                                <td> <i class="mdi mdi-delete"></i></td>                               
+                                                <td> <?php echo "$row['t_id']"; ?> </td>
+                                                <td> <?php echo "$row['t_name']"; ?> </td>
+                                                <td> <?php echo "$row['t_description']"; ?> </td>
+                                                <td> <i class="mdi mdi-delete"></i></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -135,6 +132,6 @@
 		    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 		    <script src="assets/plugins/d3/d3.min.js"></script>
 		    <script src="assets/plugins/c3-master/c3.min.js"></script>
-		    <script src="js/dashboard1.js"></script>           
+		    <script src="js/dashboard1.js"></script>
     </body>
 </html>
