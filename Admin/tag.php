@@ -101,12 +101,12 @@
                                         <?php
                                                 $str="select * from tag where t_deletion_status=0";
                                                 $reuslt=mysqli_query($con,$str);
-                                                while($row=mysqli_fetch_assoc($reuslt)){
+                                                while($row=mysqli_fetch_assoc($reuslt) ){
                                         ?>
                                             <tr>
-                                                <td> <?php echo "$row['t_id']"; ?> </td>
-                                                <td> <?php echo "$row['t_name']"; ?> </td>
-                                                <td> <?php echo "$row['t_description']"; ?> </td>
+                                                <td> <?php echo "$row[t_id]"; ?> </td>
+                                                <td> <?php echo "$row[t_name]"; ?> </td>
+                                                <td> <?php echo "$row[t_description]"; ?> </td>
                                                 <td> <i class="mdi mdi-delete"></i></td>
                                             </tr>
                                         <?php } ?>

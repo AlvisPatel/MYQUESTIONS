@@ -88,12 +88,15 @@ $res=mysqli_query($con, "SELECT q.q_id as q_id,p.u_id as u_id,q.q_title as q_tit
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while($userRow=mysqli_fetch_assoc($res))
+                                            <?php while($questionRow=mysqli_fetch_assoc($res))
                                             {
                                             echo"<tr>";
-                                                echo"<td>".$userRow['q_id']."</td>";
-                                                echo"<td>".$userRow['u_id']."</td>";
-                                                echo"<td>".$userRow['q_title']."</td>";
+                                                echo"<td>".$questionRow['q_id']."</td>";
+                                                echo"<td>".$questionRow['u_id']."</td>";
+                                                echo"<td>".$questionRow['q_title']."</td>";
+
+
+                                                echo"<td></td>";
                                                 echo"<td>";?>
                                                     <div class="col-md-12 row text-center justify-content-md-left">
                                                         <div class="6"><a href="javascript:void(0)" class="link"><i class="mdi mdi-delete">&nbsp&nbsp&nbsp&nbsp</i></a></div>
