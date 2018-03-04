@@ -101,7 +101,11 @@ $res=mysqli_query($con, "SELECT a.*,p.u_id as u_id,p.p_creation_date as p_creati
                                                 echo"<td><center>".$AnswerRow['p_upvote_count']."<cneter></td>";
                                                 echo"<td><center>".$AnswerRow['p_downvote_count']."<cneter></td>";
                                                 echo"<td><center>".$AnswerRow['p_creation_date']."<cneter></td>";
-                                                echo"<td><center>".$AnswerRow['a_acceptance_status']."<cneter></td>";
+                                                if ($AnswerRow['a_acceptance_status']==0)
+                                                    echo"<td><center> No <cneter></td>";
+                                                else {
+                                                    echo"<td><center> Yes <cneter></td>";
+                                                }
                                                 echo"<td><center>";?>
                                                     <div class="col-md-12 row text-center justify-content-md-left">
                                                         <div class="6"><a href="javascript:void(0)" class="link"><i class="mdi mdi-delete">&nbsp&nbsp&nbsp&nbsp</i></a></div>
