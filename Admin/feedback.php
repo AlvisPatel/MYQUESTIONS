@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-	require_once('session_check.php');
+    if(! isset($_SESSION['u_email']))
+    {
+        header("location:login.php");
+    }
 ?>
 <html lang="en">
 
@@ -39,7 +42,7 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav mr-auto mt-md-0">
                             <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="mdi mdi-menu"> </i> </a>
+                                <i class="mdi mdi-menu"> </i> </a> 
                             </li>
                         </ul>
                         <ul class="navbar-nav my-lg-0">
@@ -54,33 +57,42 @@
                                             $a_name=$row['u_name'];
                                         ?>
                                     <img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
-                            </li>
-                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>
+                            </li>    
+                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
                         </ul>
                     </div>
                 </nav>
             </header>
 
             <aside class="left-sidebar">
-
+            
                 <div class="scroll-sidebar">
-
+                
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
-                            <li> <a class="waves-effect waves-dark" href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                            <li> <a class="waves-effect waves-dark " href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                            <li> <a class="waves-effect waves-dark " href="user-list.php" aria-expanded="false" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">User-List</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark  active" href="feedback.php" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Feed Back</span></a>
+                            <li> <a class="waves-effect waves-dark " href="question-list.php" aria-expanded="false" ><i class="mdi mdi-comment-question-outline"></i><span class="hide-menu">Question-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark " href="answer-list.php" aria-expanded="false" ><i class="mdi mdi-comment-check-outline"></i><span class="hide-menu">Answer-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="tag-list.php" aria-expanded="false" ><i class="mdi mdi-tag-multiple"></i><span class="hide-menu">Tag-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="add-country-state.php" aria-expanded="false" ><i class="mdi mdi-plus-box-outline"></i><span class="hide-menu">Add</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark active" href="feedback.php" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Feed Back</span></a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-             </aside>
+             </aside> 
+
 
             <div class="page-wrapper">
          		<div class="container-fluid">
-                    <div class="card "></div>
+                    <div class="row page-titles "></div>
            			<div class=" card ">
               			<div class="row">
 	         	          	<div class="col-12">
@@ -93,7 +105,7 @@
                                             <th><b>user id</b></th>
                                             <th><b>Discription</b></th>
                                             <th><b>Date</b></th>
-                                            <th><b>Status</b></th>
+                                            <th><b>Action</b></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,11 +115,12 @@
                                                 while($row=mysqli_fetch_array($reuslt)){
                                         ?>
                                             <tr>
-                                                <td> <?php echo "$row[0]"; ?> </td>
+                                                <td> <?php echo "$row[0]"; ?> </td> 
                                                 <td> <?php echo "$row[2]"; ?> </td>
                                                 <td> <?php echo "$row[1]"; ?> </td>
-                                                <td> <?php echo "$row[3]"; ?> </td>
-                                                <td> <?php echo "$row[4]"; ?> </td>
+                                                <?php $date=date_create($row[3]); ?>
+                                                <td> <?php echo date_format($date,'d-m-y'); ?> </td>
+                                                <td> <i class="mdi mdi-delete"></i> </td>                                
                                             </tr>
                                         <?php } ?>
                                     </tbody>
@@ -131,6 +144,6 @@
 		    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 		    <script src="assets/plugins/d3/d3.min.js"></script>
 		    <script src="assets/plugins/c3-master/c3.min.js"></script>
-		    <script src="js/dashboard1.js"></script>
+		    <script src="js/dashboard1.js"></script>           
     </body>
 </html>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-	require_once('session_check.php');
-
+    require_once('session_check.php');
 ?>
 <html lang="en">
 
@@ -22,6 +21,8 @@
         <link href="css/style.css" rel="stylesheet">
         <link href="css/coustm.css" rel="stylesheet">
         <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+       
+
     </head>
 
     <body class="fix-header fix-sidebar card-no-border">
@@ -33,61 +34,69 @@
             <header class="topbar">
                 <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="index.php">
+                        <a class="navbar-brand" href="index.html">
                         	<p style="height: 50px; color: white">  <b><i>My Questions</i></b></p>
                         </a>
                     </div>
                     <div class="navbar-collapse">
                         <ul class="navbar-nav mr-auto mt-md-0">
                             <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="mdi mdi-menu"> </i> </a>
+                                <i class="mdi mdi-menu"> </i> </a> 
                             </li>
                         </ul>
                         <ul class="navbar-nav my-lg-0">
                             <li class="nav-item dropdown" style="margin-right: 5px;">
                                 <a class="nav-link  text-muted waves-effect waves-dark" href="Profile.php">
                                 		<?php
-                                			$a_id=$_SESSION['u_id'];
-
+                                			$a_id=$_SESSION['a_id'];
 											$str="select u_name,u_photo_path from users_details where u_id= $a_id ";
 											$result = mysqli_query($con,$str);
-											$row=mysqli_fetch_assoc($result);
+											$row=mysqli_fetch_array($result);
 											$imgpath=$row['u_photo_path'];
 											$a_name=$row['u_name'];
                                 		?>
-                                	<img src=<?php echo "$imgpath" ?> alt="profile image" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
+                                	<img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
                             </li>
-                            <li class="nav-item dropdown"><a href="logout.php" title="logout" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>
+                           
+                            <li class="nav-item dropdown"><a href="logout.php" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
                         </ul>
                     </div>
                 </nav>
             </header>
 
             <aside class="left-sidebar">
-
+            
                 <div class="scroll-sidebar">
-
+                
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li> <a class="waves-effect waves-dark active" href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark" href="tag.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Tag</span></a>
+                            <li> <a class="waves-effect waves-dark " href="user-list.php" aria-expanded="false" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">User-List</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                            <li> <a class="waves-effect waves-dark " href="question-list.php" aria-expanded="false" ><i class="mdi mdi-comment-question-outline"></i><span class="hide-menu">Question-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark " href="answer-list.php" aria-expanded="false" ><i class="mdi mdi-comment-check-outline"></i><span class="hide-menu">Answer-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="tag-list.php" aria-expanded="false" ><i class="mdi mdi-tag-multiple"></i><span class="hide-menu">Tag-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="add-country-state.php" aria-expanded="false" ><i class="mdi mdi-plus-box-outline"></i><span class="hide-menu">Add</span></a>
                             </li>
                             <li> <a class="waves-effect waves-dark" href="feedback.php" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Feed Back</span></a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-             </aside>
+             </aside> 
 
             <div class="page-wrapper">
          		<div class="container-fluid">
-           			 <div class="card"></div>
+           			 <div class="row page-titles "></div>
                      <div class="card">
               			<div class="row ">
 	         	          	<div class="col-6">
+                                
+
 		                   	</div>
                             <div class="col-6">
                             </div>
@@ -109,6 +118,6 @@
 		    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 		    <script src="assets/plugins/d3/d3.min.js"></script>
 		    <script src="assets/plugins/c3-master/c3.min.js"></script>
-		    <script src="js/dashboard1.js"></script>
+		    <script src="js/dashboard1.js"></script>           
     </body>
 </html>
