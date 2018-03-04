@@ -72,7 +72,7 @@ $res=mysqli_query($con, "SELECT p.u_id as u_id,p.p_creation_date as p_creation_d
         <div class="page-wrapper">
             <div class="container-fluid">
                 <div class="row page-titles">
-
+                    
                 </div>
                 <div class="row">
                     <div class="col-lg-12">

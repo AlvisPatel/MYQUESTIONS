@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-	require_once('session_check.php');
+    if(! isset($_SESSION['u_email']))
+    {
+        header("location:login.php");
+    }
 ?>
 <html lang="en">
 
@@ -39,7 +42,7 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav mr-auto mt-md-0">
                             <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="mdi mdi-menu"> </i> </a>
+                                <i class="mdi mdi-menu"> </i> </a> 
                             </li>
                         </ul>
                         <ul class="navbar-nav my-lg-0">
@@ -54,17 +57,17 @@
 											$a_name=$row['u_name'];
                                 		?>
                                 	<img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
-                            </li>
-                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>
+                            </li>    
+                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
                         </ul>
                     </div>
                 </nav>
             </header>
 
             <aside class="left-sidebar">
-
+            
                 <div class="scroll-sidebar">
-
+                
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li> <a class="waves-effect waves-dark" href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
@@ -78,26 +81,30 @@
                 </div>
              </aside>
 
-             <!-- get admin other details php code -->
+             <!-- get user other details php code -->
 
                                     <?php
-                                            $str="select * from users where u_id= $u_id";
+                                            $str="select * from users where u_id=4";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_assoc($result);
                                             $u_email=$row['u_email'];
-                                            $str="select * from users_details where u_id= $u_id";
+                                            
+                                            $str="select * from users_details where u_id=4";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_assoc($result);
+                                            
                                             $u_name=$row['u_name'];
+                                            $u_imgpath=$row['u_photo_path'];
+                                            $u_intrested_tags=$row['u_intrested_tags'];
                                             $u_description=$row['u_description'];
                                             $u_DOB=$row['u_DOB'];
                                             $u_designation=$row['u_designation'];
                                             $u_contry=$row['u_contry'];
                                             $u_state=$row['u_state'];
-                                           $u_type=$row['u_type'];
-                                           $u_intrested_tegs=$row['u_intrested_tegs'];
+                                            $u_type=$row['u_type'];
+                                            
                                     ?>
-
+                     
 
             <div class="page-wrapper">
          		<div class="container-fluid">
@@ -107,14 +114,17 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-block">
-                                <center class="m-t-30"> <img src=<?php  echo $imgpath ?> class="img-circle" width="150" />
+                                <center class="m-t-30"> <img src=<?php  echo $u_imgpath ?> class="img-circle" width="150" alt="user" />
                                     <h4 class="card-title m-t-10"><?php  echo $u_name?> </h4>
                                     <h6 class="card-subtitle"><?php  echo $u_type?></h6>
+                                    <div class="row text-center justify-content-md-center">
+                                        <div class="col-4"><i class="mdi-seal"></i> <font class="font-medium">254</font></div>
+                                    </div>
                                 </center>
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- Column -->
                     <!-- Column -->
 
@@ -125,54 +135,49 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_name" value="<?php  echo $u_name ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_name" value="<?php  echo $u_name ?>" class="form-control form-control-line" readonly >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" value="<?php  echo $u_email; ?> " class="form-control form-control-line" name="u_email">
+                                            <input type="email" value="<?php  echo $u_email; ?> " class="form-control form-control-line" name="u_email" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Date Of Birth</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_DOB" value="<?php  echo $u_DOB?>" class="form-control form-control-line">
+                                            <input type="text" name="u_DOB" value="<?php  echo $u_DOB?>" class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Intrested Tags</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_intrested_tegs" value="<?php  echo $u_intrested_tegs ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_intrested_tegs" value="<?php  echo $u_intrested_tags ?>" class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Country</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_contry" value="<?php  echo $u_contry ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_contry" value="<?php  echo $u_contry ?>" class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">State</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_state" value="<?php  echo $u_state ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_state" value="<?php  echo $u_state ?>" class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Designation</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_designation" value="<?php  echo $u_designation ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_designation" value="<?php  echo $u_designation ?>" class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Description</label>
                                         <div class="col-md-12">
-                                            <textarea rows="5" name="u_description" class="form-control form-control-line"><?php echo $u_description;?></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <button type="submit" value="submit" name="btn_sub" class="btn btn-success">Update Profile</button>
+                                            <textarea rows="5" name="u_description" class="form-control form-control-line" readonly><?php echo $u_description;?></textarea>
                                         </div>
                                     </div>
                                 </form>
@@ -181,7 +186,7 @@
                     </div>
                     <!-- Column -->
                 </div>
-
+		                   	
               	</div>
             </div>
 
@@ -197,6 +202,6 @@
 		    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 		    <script src="assets/plugins/d3/d3.min.js"></script>
 		    <script src="assets/plugins/c3-master/c3.min.js"></script>
-		    <script src="js/dashboard1.js"></script>
+		    <script src="js/dashboard1.js"></script>           
     </body>
 </html>

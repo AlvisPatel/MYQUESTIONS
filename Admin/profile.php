@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-	require_once('session_check.php');
+    require_once('session_check.php');
 ?>
 <html lang="en">
 
@@ -39,45 +39,60 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav mr-auto mt-md-0">
                             <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="mdi mdi-menu"> </i> </a>
+                                <i class="mdi mdi-menu"> </i> </a> 
                             </li>
                         </ul>
                         <ul class="navbar-nav my-lg-0">
                             <li class="nav-item dropdown" style="margin-right: 5px;">
                                 <a class="nav-link  text-muted waves-effect waves-dark" href="Profile.php">
                                 		<?php
-                                			$a_id=$_SESSION['u_id'];
+                                			$a_id=$_SESSION['a_id'];
 											$str="select u_name,u_photo_path from users_details where u_id= $a_id ";
 											$result = mysqli_query($con,$str);
 											$row=mysqli_fetch_array($result);
 											$imgpath=$row['u_photo_path'];
 											$a_name=$row['u_name'];
+<<<<<<< HEAD
 											echo"$row[u_photo_path]";
+=======
+                                
+>>>>>>> 42d0b07055f36789154442f941b4c3369000290c
                                 		?>
                                 	<img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
-                            </li>
-                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>
+                            </li>    
+                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
                         </ul>
                     </div>
                 </nav>
             </header>
 
             <aside class="left-sidebar">
-
+            
                 <div class="scroll-sidebar">
-
-                    <nav class="sidebar-nav">
+                
+                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li> <a class="waves-effect waves-dark" href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark active" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                            <li> <a class="waves-effect waves-dark " href="user-list.php" aria-expanded="false" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">User-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark " href="question-list.php" aria-expanded="false" ><i class="mdi mdi-comment-question-outline"></i><span class="hide-menu">Question-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark " href="answer-list.php" aria-expanded="false" ><i class="mdi mdi-comment-check-outline"></i><span class="hide-menu">Answer-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="tag-list.php" aria-expanded="false" ><i class="mdi mdi-tag-multiple"></i><span class="hide-menu">Tag-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="add-country-state.php" aria-expanded="false" ><i class="mdi mdi-plus-box-outline"></i><span class="hide-menu">Add</span></a>
                             </li>
                             <li> <a class="waves-effect waves-dark" href="feedback.php" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Feed Back</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark active" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-             </aside>
+             </aside> 
+             
 
              <!-- get admin other details php code -->
 
@@ -91,12 +106,12 @@
                                             $u_contry=$row['u_contry'];
                                             $u_state=$row['u_state'];
                                             $u_type=$row['u_type'];
-
+                                    
                                     ?>
 
             <div class="page-wrapper">
          		<div class="container-fluid">
-           			 <div class="card"></div>
+                    <div class="row page-titles "></div>
                     <div class="row">
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
@@ -109,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- Column -->
                     <!-- Column -->
 
@@ -126,7 +141,11 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
+<<<<<<< HEAD
                                             <input type="email" value="<?php  echo $_SESSION['a_email'] ?> " class="form-control form-control-line" name="a_email">
+=======
+                                            <input type="email" value="<?php  echo $_SESSION['a_email'] ?> " class="form-control form-control-line" name="u_email">
+>>>>>>> 42d0b07055f36789154442f941b4c3369000290c
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -144,13 +163,32 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Country</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_contry" value="<?php  echo $u_contry ?>" class="form-control form-control-line">
+                                            <select class="form-control form-control-line" name="u_contry">
+
+                                                <?php
+                                                  $all_country = mysqli_query($con,"select * from country where country_deletion_status=0;");
+                                    
+                                                  while ($country_row=mysqli_fetch_array($all_country)) { ?>
+                                                        <option  <?php if($country_row['country_name']==$u_contry){?> selected <?php } ?> value= <?php echo $country_row['country_name']; ?> > <?php echo $country_row['country_name']; ?> </option>
+                                                   <?php }  
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="col-md-12">State</label>
+                                        <label class="col-md-12">state</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_state" value="<?php  echo $u_state ?>" class="form-control form-control-line">
+                                            <select class="form-control form-control-line" name="u_state">
+
+                                                <?php
+                                                  $all_state = mysqli_query($con,"select * from state where state_deletion_status=0;");
+                                    
+                                                  while ($state_row=mysqli_fetch_array($all_state)) { ?>
+                                                        <option  <?php if($state_row['state_name']==$u_state){?> selected <?php } ?> value= <?php echo $state_row['state_name']; ?> > <?php echo $state_row['state_name']; ?> </option>
+                                                   <?php }  
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -176,7 +214,7 @@
                     </div>
                     <!-- Column -->
                 </div>
-
+		                   	
               	</div>
             </div>
 
@@ -192,6 +230,6 @@
 		    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 		    <script src="assets/plugins/d3/d3.min.js"></script>
 		    <script src="assets/plugins/c3-master/c3.min.js"></script>
-		    <script src="js/dashboard1.js"></script>
+		    <script src="js/dashboard1.js"></script>           
     </body>
 </html>
