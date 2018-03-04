@@ -47,7 +47,7 @@
                             <li class="nav-item dropdown" style="margin-right: 5px;">
                                 <a class="nav-link  text-muted waves-effect waves-dark" href="Profile.php">
                                 		<?php
-                                			$a_id=$_SESSION['u_id'];
+                                			$a_id=$_SESSION['a_id'];
 
 											$str="select u_name,u_photo_path from users_details where u_id= $a_id ";
 											$result = mysqli_query($con,$str);

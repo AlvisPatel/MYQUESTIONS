@@ -52,6 +52,7 @@
 											$row=mysqli_fetch_array($result);
 											$imgpath=$row['u_photo_path'];
 											$a_name=$row['u_name'];
+											echo"$row[u_photo_path]";
                                 		?>
                                 	<img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
                             </li>
@@ -119,13 +120,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_name" value="<?php  echo $a_name ?>" class="form-control form-control-line">
+                                            <input type="text" name="u_name" value="<?php  echo $a_name; ?>" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" value="<?php  echo $_SESSION['u_email'] ?> " class="form-control form-control-line" name="u_email">
+                                            <input type="email" value="<?php  echo $_SESSION['a_email'] ?> " class="form-control form-control-line" name="a_email">
                                         </div>
                                     </div>
                                     <div class="form-group">

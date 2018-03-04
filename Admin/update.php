@@ -6,7 +6,7 @@
 	{
 		$a_id=$_SESSION['u_id'];
 		$a_name=$_POST['u_name'];
-		$u_email=$_POST['u_email'];
+		$a_email=$_POST['a_email'];
 		$u_password=$_POST['u_password'];
 		$u_description=$_POST['u_description'];
 		$u_DOB=$_POST['u_DOB'];
