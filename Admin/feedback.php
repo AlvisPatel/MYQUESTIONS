@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-    if(! isset($_SESSION['u_email']))
-    {
-        header("location:login.php");
-    }
+    require_once('session_check.php');
 ?>
 <html lang="en">
 
@@ -24,6 +21,37 @@
         <link href="css/style.css" rel="stylesheet">
         <link href="css/coustm.css" rel="stylesheet">
         <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+        <script src="assets/plugins/jquery/jquery.min.js"> </script>
+        
+        <script type="text/javascript">
+                $(document).ready(function(){
+
+                // Delete
+                    $('.delete').click(function(){
+                            var el = this;
+                            var id = this.id;
+                            var splitid = id.split("_");
+
+                            // Delete id
+                            var deleteid = splitid[1];
+
+                            // AJAX Request
+                            $.ajax({
+                                    url: 'delete_feedback.php',
+                                    type: 'POST',
+                                    data: { id:deleteid },
+                                    success: function(response){
+                                        alert(response);
+                                        // Removing row from HTML Table
+                                        $(el).closest('tr').css('background','tomato');
+                                        $(el).closest('tr').fadeOut(800, function(){
+                                                $(this).remove();
+                                            });
+                                    }
+                            });
+                     });
+                });
+            </script>
     </head>
 
     <body class="fix-header fix-sidebar card-no-border">
@@ -49,7 +77,7 @@
                             <li class="nav-item dropdown" style="margin-right: 5px;">
                                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded false">
                                 		<?php
-                                            $a_id=$_SESSION['u_id'];
+                                            $a_id=$_SESSION['a_id'];
                                             $str="select u_name,u_photo_path from users_details where u_id= $a_id ";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_array($result);
@@ -58,7 +86,7 @@
                                         ?>
                                     <img src=<?php echo "$imgpath" ?> alt="user" class="profile-pic m-r-10" /><?php echo "$a_name"; ?></a>
                             </li>    
-                            <li class="nav-item dropdown"><a href="" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
+                            <li class="nav-item dropdown"><a href="logout.php" class="link nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a></li>                
                         </ul>
                     </div>
                 </nav>
@@ -110,9 +138,10 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                                $str="select * from feedback";
+                                                $str="select * from feedback where feed_deletion_status=0";
                                                 $reuslt=mysqli_query($con,$str);
                                                 while($row=mysqli_fetch_array($reuslt)){
+                                                    $id =  $row['feed_id'];
                                         ?>
                                             <tr>
                                                 <td> <?php echo "$row[0]"; ?> </td> 
@@ -120,7 +149,13 @@
                                                 <td> <?php echo "$row[1]"; ?> </td>
                                                 <?php $date=date_create($row[3]); ?>
                                                 <td> <?php echo date_format($date,'d-m-y'); ?> </td>
-                                                <td> <i class="mdi mdi-delete"></i> </td>                                
+                                                <td> 
+                                                    <div class="col-md-12 row text-center justify-content-md-left">
+                                                        <span class="delete" id="del_<?php echo $id ;?>">
+                                                            <div class="6"><a href="javascript:void(0)" class="link"><i class="mdi mdi-delete"></i></a></div>
+                                                        </span>
+                                                    </div> 
+                                                </td>                                
                                             </tr>
                                         <?php } ?>
                                     </tbody>

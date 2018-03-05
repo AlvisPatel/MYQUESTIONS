@@ -118,7 +118,7 @@ $res=mysqli_query($con, "SELECT u_id,u_name,u_reputation,u_DOB FROM users_detail
                                             {
                                             echo"<tr>";
                                                 echo"<td>".$userRow['u_id']."</td>";
-                                                echo"<td>".$userRow['u_name']."</td>";
+                                                echo"<td><a href='u_profile.php?id=".$userRow['u_id']."' class='link'>".$userRow['u_name']."</a></td>";
                                                 echo"<td>".$userRow['u_reputation']."</td>";
                                                 echo"<td>".$userRow['u_DOB']."</td>";
                                                 echo"<td>";?>

@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <?php
 	require_once('../config.php');
-    if(! isset($_SESSION['u_email']))
-    {
-        header("location:login.php");
-    }
+    require_once('session_check.php');
 ?>
 <html lang="en">
 
@@ -49,7 +46,7 @@
                             <li class="nav-item dropdown" style="margin-right: 5px;">
                                 <a class="nav-link  text-muted waves-effect waves-dark" href="Profile.php">
                                 		<?php
-                                			$a_id=$_SESSION['u_id'];
+                                			$a_id=$_SESSION['a_id'];
 											$str="select u_name,u_photo_path from users_details where u_id= $a_id ";
 											$result = mysqli_query($con,$str);
 											$row=mysqli_fetch_array($result);
@@ -68,13 +65,23 @@
             
                 <div class="scroll-sidebar">
                 
-                    <nav class="sidebar-nav">
+                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li> <a class="waves-effect waves-dark" href="index.php" aria-expanded="false" ><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                             </li>
-                            <li> <a class="waves-effect waves-dark active" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
+                            <li> <a class="waves-effect waves-dark " href="user-list.php" aria-expanded="false" ><i class="mdi mdi-account-multiple"></i><span class="hide-menu">User-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark " href="question-list.php" aria-expanded="false" ><i class="mdi mdi-comment-question-outline"></i><span class="hide-menu">Question-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark " href="answer-list.php" aria-expanded="false" ><i class="mdi mdi-comment-check-outline"></i><span class="hide-menu">Answer-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="tag-list.php" aria-expanded="false" ><i class="mdi mdi-tag-multiple"></i><span class="hide-menu">Tag-List</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark" href="add-country-state.php" aria-expanded="false" ><i class="mdi mdi-plus-box-outline"></i><span class="hide-menu">Add</span></a>
                             </li>
                             <li> <a class="waves-effect waves-dark" href="feedback.php" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">Feed Back</span></a>
+                            </li>
+                            <li> <a class="waves-effect waves-dark active" href="profile.php" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a>
                             </li>
                         </ul>
                     </nav>
@@ -84,25 +91,28 @@
              <!-- get user other details php code -->
 
                                     <?php
-                                            $str="select * from users where u_id=4";
+                                            $u_id=$_GET['id'];
+                                            $str="select * from users where u_id=$u_id";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_assoc($result);
                                             $u_email=$row['u_email'];
                                             
-                                            $str="select * from users_details where u_id=4";
+                                            $str="select * from users_details where u_id=$u_id";
                                             $result = mysqli_query($con,$str);
                                             $row=mysqli_fetch_assoc($result);
                                             
                                             $u_name=$row['u_name'];
                                             $u_imgpath=$row['u_photo_path'];
-                                            $u_intrested_tags=$row['u_intrested_tags'];
+                                            $u_intrested_tag_ids=$row['u_intrested_tag_ids'];
                                             $u_description=$row['u_description'];
                                             $u_DOB=$row['u_DOB'];
                                             $u_designation=$row['u_designation'];
                                             $u_contry=$row['u_contry'];
                                             $u_state=$row['u_state'];
                                             $u_type=$row['u_type'];
-                                            
+
+                            
+                                             
                                     ?>
                      
 
@@ -153,7 +163,8 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Intrested Tags</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="u_intrested_tegs" value="<?php  echo $u_intrested_tags ?>" class="form-control form-control-line" readonly>
+                                            
+                                            <input type="text" name="u_intrested_teg_ids" value="<?php  echo $u_intrested_tag_ids ?>" class="form-control form-control-line" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
